@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "Salivare-DevHub/sso.v1;ssov1";
+
+service Auth {
+  // Google OAuth2
+  rpc StartGoogleAuth(StartGoogleAuthRequest) returns (StartGoogleAuthResponse);
+  rpc ExchangeGoogleCode(ExchangeGoogleCodeRequest) returns (ExchangeGoogleCodeResponse);
+
+  // Yandex OAuth2
+  rpc StartYandexAuth(StartYandexAuthRequest) returns (StartYandexAuthResponse);
+  rpc ExchangeYandexCode(ExchangeYandexCodeRequest) returns (ExchangeYandexCodeResponse);
+}
+
+// Google
+
+message StartGoogleAuthRequest {}
+
+message StartGoogleAuthResponse {
+  string redirect_url = 1;
+}
+
+message ExchangeGoogleCodeRequest {
+  string code = 1;
+}
+
+message ExchangeGoogleCodeResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+// Yandex
+
+message StartYandexAuthRequest {}
+
+message StartYandexAuthResponse {
+  string redirect_url = 1;
+}
+
+message ExchangeYandexCodeRequest {
+  string code = 1;
+}
+
+message ExchangeYandexCodeResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
