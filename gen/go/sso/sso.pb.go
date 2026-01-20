@@ -24,6 +24,7 @@ const (
 type StartAuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"` // "google" | "yandex"
+	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -63,6 +64,13 @@ func (x *StartAuthRequest) GetProvider() string {
 		return x.Provider
 	}
 	return ""
+}
+
+func (x *StartAuthRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type StartAuthResponse struct {
@@ -113,6 +121,7 @@ type ExchangeCodeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"` // "google" | "yandex"
 	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	AppId         int32                  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -159,6 +168,13 @@ func (x *ExchangeCodeRequest) GetCode() string {
 		return x.Code
 	}
 	return ""
+}
+
+func (x *ExchangeCodeRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type ExchangeCodeResponse struct {
@@ -213,9 +229,11 @@ func (x *ExchangeCodeResponse) GetRefreshToken() string {
 	return ""
 }
 
+// Token lifecycle
 type RefreshTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -255,6 +273,13 @@ func (x *RefreshTokenRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
+}
+
+func (x *RefreshTokenRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type RefreshTokenResponse struct {
@@ -312,6 +337,7 @@ func (x *RefreshTokenResponse) GetRefreshToken() string {
 type LogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -351,6 +377,13 @@ func (x *LogoutRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
+}
+
+func (x *LogoutRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type LogoutResponse struct {
@@ -472,6 +505,7 @@ func (*RevokeRefreshTokenResponse) Descriptor() ([]byte, []int) {
 type ValidateAccessTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	AppId         int32                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -511,6 +545,13 @@ func (x *ValidateAccessTokenRequest) GetAccessToken() string {
 		return x.AccessToken
 	}
 	return ""
+}
+
+func (x *ValidateAccessTokenRequest) GetAppId() int32 {
+	if x != nil {
+		return x.AppId
+	}
+	return 0
 }
 
 type ValidateAccessTokenResponse struct {
@@ -569,30 +610,35 @@ var File_sso_sso_proto protoreflect.FileDescriptor
 
 const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
-	"\rsso/sso.proto\".\n" +
+	"\rsso/sso.proto\"E\n" +
 	"\x10StartAuthRequest\x12\x1a\n" +
-	"\bprovider\x18\x01 \x01(\tR\bprovider\"6\n" +
+	"\bprovider\x18\x01 \x01(\tR\bprovider\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"6\n" +
 	"\x11StartAuthResponse\x12!\n" +
-	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"E\n" +
+	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"\\\n" +
 	"\x13ExchangeCodeRequest\x12\x1a\n" +
 	"\bprovider\x18\x01 \x01(\tR\bprovider\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\tR\x04code\"^\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\x12\x15\n" +
+	"\x06app_id\x18\x03 \x01(\x05R\x05appId\"^\n" +
 	"\x14ExchangeCodeResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\":\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"Q\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"^\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"^\n" +
 	"\x14RefreshTokenResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"K\n" +
 	"\rLogoutRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\x10\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"\x10\n" +
 	"\x0eLogoutResponse\"@\n" +
 	"\x19RevokeRefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\x1c\n" +
-	"\x1aRevokeRefreshTokenResponse\"?\n" +
+	"\x1aRevokeRefreshTokenResponse\"V\n" +
 	"\x1aValidateAccessTokenRequest\x12!\n" +
-	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"L\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12\x15\n" +
+	"\x06app_id\x18\x02 \x01(\x05R\x05appId\"L\n" +
 	"\x1bValidateAccessTokenResponse\x12\x14\n" +
 	"\x05valid\x18\x01 \x01(\bR\x05valid\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId2\x80\x03\n" +

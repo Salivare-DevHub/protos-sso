@@ -14,6 +14,7 @@ service Auth {
 }
 message StartAuthRequest {
   string provider = 1; // "google" | "yandex"
+  int32 app_id = 2;
 }
 
 message StartAuthResponse {
@@ -23,6 +24,7 @@ message StartAuthResponse {
 message ExchangeCodeRequest {
   string provider = 1; // "google" | "yandex"
   string code = 2;
+  int32 app_id = 3;
 }
 
 message ExchangeCodeResponse {
@@ -31,9 +33,9 @@ message ExchangeCodeResponse {
 }
 
 // Token lifecycle
-
 message RefreshTokenRequest {
   string refresh_token = 1;
+  int32 app_id = 2;
 }
 
 message RefreshTokenResponse {
@@ -43,6 +45,7 @@ message RefreshTokenResponse {
 
 message LogoutRequest {
   string refresh_token = 1;
+  int32 app_id = 2;
 }
 
 message LogoutResponse {}
@@ -55,6 +58,7 @@ message RevokeRefreshTokenResponse {}
 
 message ValidateAccessTokenRequest {
   string access_token = 1;
+  int32 app_id = 2;
 }
 
 message ValidateAccessTokenResponse {
