@@ -3,45 +3,61 @@ syntax = "proto3";
 option go_package = "Salivare-DevHub/sso.v1;ssov1";
 
 service Auth {
-  // Google OAuth2
-  rpc StartGoogleAuth(StartGoogleAuthRequest) returns (StartGoogleAuthResponse);
-  rpc ExchangeGoogleCode(ExchangeGoogleCodeRequest) returns (ExchangeGoogleCodeResponse);
+  rpc StartAuth(StartAuthRequest) returns (StartAuthResponse);
+  rpc ExchangeCode(ExchangeCodeRequest) returns (ExchangeCodeResponse);
 
-  // Yandex OAuth2
-  rpc StartYandexAuth(StartYandexAuthRequest) returns (StartYandexAuthResponse);
-  rpc ExchangeYandexCode(ExchangeYandexCodeRequest) returns (ExchangeYandexCodeResponse);
+  // Token lifecycle
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+  rpc RevokeRefreshToken(RevokeRefreshTokenRequest) returns (RevokeRefreshTokenResponse);
+  rpc ValidateAccessToken(ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse);
+}
+message StartAuthRequest {
+  string provider = 1; // "google" | "yandex"
 }
 
-// Google
-
-message StartGoogleAuthRequest {}
-
-message StartGoogleAuthResponse {
+message StartAuthResponse {
   string redirect_url = 1;
 }
 
-message ExchangeGoogleCodeRequest {
-  string code = 1;
+message ExchangeCodeRequest {
+  string provider = 1; // "google" | "yandex"
+  string code = 2;
 }
 
-message ExchangeGoogleCodeResponse {
+message ExchangeCodeResponse {
   string access_token = 1;
   string refresh_token = 2;
 }
 
-// Yandex
+// Token lifecycle
 
-message StartYandexAuthRequest {}
-
-message StartYandexAuthResponse {
-  string redirect_url = 1;
+message RefreshTokenRequest {
+  string refresh_token = 1;
 }
 
-message ExchangeYandexCodeRequest {
-  string code = 1;
-}
-
-message ExchangeYandexCodeResponse {
+message RefreshTokenResponse {
   string access_token = 1;
   string refresh_token = 2;
+}
+
+message LogoutRequest {
+  string refresh_token = 1;
+}
+
+message LogoutResponse {}
+
+message RevokeRefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message RevokeRefreshTokenResponse {}
+
+message ValidateAccessTokenRequest {
+  string access_token = 1;
+}
+
+message ValidateAccessTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
 }
