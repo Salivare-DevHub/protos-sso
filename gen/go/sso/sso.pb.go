@@ -21,26 +21,27 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type StartGoogleAuthRequest struct {
+type StartAuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"` // "google" | "yandex"
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StartGoogleAuthRequest) Reset() {
-	*x = StartGoogleAuthRequest{}
+func (x *StartAuthRequest) Reset() {
+	*x = StartAuthRequest{}
 	mi := &file_sso_sso_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *StartGoogleAuthRequest) String() string {
+func (x *StartAuthRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StartGoogleAuthRequest) ProtoMessage() {}
+func (*StartAuthRequest) ProtoMessage() {}
 
-func (x *StartGoogleAuthRequest) ProtoReflect() protoreflect.Message {
+func (x *StartAuthRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -52,32 +53,39 @@ func (x *StartGoogleAuthRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use StartGoogleAuthRequest.ProtoReflect.Descriptor instead.
-func (*StartGoogleAuthRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use StartAuthRequest.ProtoReflect.Descriptor instead.
+func (*StartAuthRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{0}
 }
 
-type StartGoogleAuthResponse struct {
+func (x *StartAuthRequest) GetProvider() string {
+	if x != nil {
+		return x.Provider
+	}
+	return ""
+}
+
+type StartAuthResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RedirectUrl   string                 `protobuf:"bytes,1,opt,name=redirect_url,json=redirectUrl,proto3" json:"redirect_url,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StartGoogleAuthResponse) Reset() {
-	*x = StartGoogleAuthResponse{}
+func (x *StartAuthResponse) Reset() {
+	*x = StartAuthResponse{}
 	mi := &file_sso_sso_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *StartGoogleAuthResponse) String() string {
+func (x *StartAuthResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StartGoogleAuthResponse) ProtoMessage() {}
+func (*StartAuthResponse) ProtoMessage() {}
 
-func (x *StartGoogleAuthResponse) ProtoReflect() protoreflect.Message {
+func (x *StartAuthResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -89,39 +97,40 @@ func (x *StartGoogleAuthResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use StartGoogleAuthResponse.ProtoReflect.Descriptor instead.
-func (*StartGoogleAuthResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use StartAuthResponse.ProtoReflect.Descriptor instead.
+func (*StartAuthResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *StartGoogleAuthResponse) GetRedirectUrl() string {
+func (x *StartAuthResponse) GetRedirectUrl() string {
 	if x != nil {
 		return x.RedirectUrl
 	}
 	return ""
 }
 
-type ExchangeGoogleCodeRequest struct {
+type ExchangeCodeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	Provider      string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"` // "google" | "yandex"
+	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ExchangeGoogleCodeRequest) Reset() {
-	*x = ExchangeGoogleCodeRequest{}
+func (x *ExchangeCodeRequest) Reset() {
+	*x = ExchangeCodeRequest{}
 	mi := &file_sso_sso_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ExchangeGoogleCodeRequest) String() string {
+func (x *ExchangeCodeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExchangeGoogleCodeRequest) ProtoMessage() {}
+func (*ExchangeCodeRequest) ProtoMessage() {}
 
-func (x *ExchangeGoogleCodeRequest) ProtoReflect() protoreflect.Message {
+func (x *ExchangeCodeRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -133,19 +142,26 @@ func (x *ExchangeGoogleCodeRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExchangeGoogleCodeRequest.ProtoReflect.Descriptor instead.
-func (*ExchangeGoogleCodeRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ExchangeCodeRequest.ProtoReflect.Descriptor instead.
+func (*ExchangeCodeRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ExchangeGoogleCodeRequest) GetCode() string {
+func (x *ExchangeCodeRequest) GetProvider() string {
+	if x != nil {
+		return x.Provider
+	}
+	return ""
+}
+
+func (x *ExchangeCodeRequest) GetCode() string {
 	if x != nil {
 		return x.Code
 	}
 	return ""
 }
 
-type ExchangeGoogleCodeResponse struct {
+type ExchangeCodeResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
@@ -153,20 +169,20 @@ type ExchangeGoogleCodeResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ExchangeGoogleCodeResponse) Reset() {
-	*x = ExchangeGoogleCodeResponse{}
+func (x *ExchangeCodeResponse) Reset() {
+	*x = ExchangeCodeResponse{}
 	mi := &file_sso_sso_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ExchangeGoogleCodeResponse) String() string {
+func (x *ExchangeCodeResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExchangeGoogleCodeResponse) ProtoMessage() {}
+func (*ExchangeCodeResponse) ProtoMessage() {}
 
-func (x *ExchangeGoogleCodeResponse) ProtoReflect() protoreflect.Message {
+func (x *ExchangeCodeResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -178,45 +194,46 @@ func (x *ExchangeGoogleCodeResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExchangeGoogleCodeResponse.ProtoReflect.Descriptor instead.
-func (*ExchangeGoogleCodeResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ExchangeCodeResponse.ProtoReflect.Descriptor instead.
+func (*ExchangeCodeResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ExchangeGoogleCodeResponse) GetAccessToken() string {
+func (x *ExchangeCodeResponse) GetAccessToken() string {
 	if x != nil {
 		return x.AccessToken
 	}
 	return ""
 }
 
-func (x *ExchangeGoogleCodeResponse) GetRefreshToken() string {
+func (x *ExchangeCodeResponse) GetRefreshToken() string {
 	if x != nil {
 		return x.RefreshToken
 	}
 	return ""
 }
 
-type StartYandexAuthRequest struct {
+type RefreshTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *StartYandexAuthRequest) Reset() {
-	*x = StartYandexAuthRequest{}
+func (x *RefreshTokenRequest) Reset() {
+	*x = RefreshTokenRequest{}
 	mi := &file_sso_sso_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *StartYandexAuthRequest) String() string {
+func (x *RefreshTokenRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*StartYandexAuthRequest) ProtoMessage() {}
+func (*RefreshTokenRequest) ProtoMessage() {}
 
-func (x *StartYandexAuthRequest) ProtoReflect() protoreflect.Message {
+func (x *RefreshTokenRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -228,100 +245,19 @@ func (x *StartYandexAuthRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use StartYandexAuthRequest.ProtoReflect.Descriptor instead.
-func (*StartYandexAuthRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use RefreshTokenRequest.ProtoReflect.Descriptor instead.
+func (*RefreshTokenRequest) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{4}
 }
 
-type StartYandexAuthResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RedirectUrl   string                 `protobuf:"bytes,1,opt,name=redirect_url,json=redirectUrl,proto3" json:"redirect_url,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *StartYandexAuthResponse) Reset() {
-	*x = StartYandexAuthResponse{}
-	mi := &file_sso_sso_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *StartYandexAuthResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*StartYandexAuthResponse) ProtoMessage() {}
-
-func (x *StartYandexAuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[5]
+func (x *RefreshTokenRequest) GetRefreshToken() string {
 	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use StartYandexAuthResponse.ProtoReflect.Descriptor instead.
-func (*StartYandexAuthResponse) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *StartYandexAuthResponse) GetRedirectUrl() string {
-	if x != nil {
-		return x.RedirectUrl
+		return x.RefreshToken
 	}
 	return ""
 }
 
-type ExchangeYandexCodeRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Code          string                 `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ExchangeYandexCodeRequest) Reset() {
-	*x = ExchangeYandexCodeRequest{}
-	mi := &file_sso_sso_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ExchangeYandexCodeRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ExchangeYandexCodeRequest) ProtoMessage() {}
-
-func (x *ExchangeYandexCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_sso_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ExchangeYandexCodeRequest.ProtoReflect.Descriptor instead.
-func (*ExchangeYandexCodeRequest) Descriptor() ([]byte, []int) {
-	return file_sso_sso_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *ExchangeYandexCodeRequest) GetCode() string {
-	if x != nil {
-		return x.Code
-	}
-	return ""
-}
-
-type ExchangeYandexCodeResponse struct {
+type RefreshTokenResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
@@ -329,20 +265,114 @@ type ExchangeYandexCodeResponse struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ExchangeYandexCodeResponse) Reset() {
-	*x = ExchangeYandexCodeResponse{}
+func (x *RefreshTokenResponse) Reset() {
+	*x = RefreshTokenResponse{}
+	mi := &file_sso_sso_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RefreshTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RefreshTokenResponse) ProtoMessage() {}
+
+func (x *RefreshTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RefreshTokenResponse.ProtoReflect.Descriptor instead.
+func (*RefreshTokenResponse) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RefreshTokenResponse) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
+func (x *RefreshTokenResponse) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+type LogoutRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutRequest) Reset() {
+	*x = LogoutRequest{}
+	mi := &file_sso_sso_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogoutRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogoutRequest) ProtoMessage() {}
+
+func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
+func (*LogoutRequest) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *LogoutRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+type LogoutResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogoutResponse) Reset() {
+	*x = LogoutResponse{}
 	mi := &file_sso_sso_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ExchangeYandexCodeResponse) String() string {
+func (x *LogoutResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExchangeYandexCodeResponse) ProtoMessage() {}
+func (*LogoutResponse) ProtoMessage() {}
 
-func (x *ExchangeYandexCodeResponse) ProtoReflect() protoreflect.Message {
+func (x *LogoutResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_sso_sso_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -354,21 +384,183 @@ func (x *ExchangeYandexCodeResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExchangeYandexCodeResponse.ProtoReflect.Descriptor instead.
-func (*ExchangeYandexCodeResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use LogoutResponse.ProtoReflect.Descriptor instead.
+func (*LogoutResponse) Descriptor() ([]byte, []int) {
 	return file_sso_sso_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *ExchangeYandexCodeResponse) GetAccessToken() string {
+type RevokeRefreshTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeRefreshTokenRequest) Reset() {
+	*x = RevokeRefreshTokenRequest{}
+	mi := &file_sso_sso_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeRefreshTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeRefreshTokenRequest) ProtoMessage() {}
+
+func (x *RevokeRefreshTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeRefreshTokenRequest.ProtoReflect.Descriptor instead.
+func (*RevokeRefreshTokenRequest) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *RevokeRefreshTokenRequest) GetRefreshToken() string {
+	if x != nil {
+		return x.RefreshToken
+	}
+	return ""
+}
+
+type RevokeRefreshTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeRefreshTokenResponse) Reset() {
+	*x = RevokeRefreshTokenResponse{}
+	mi := &file_sso_sso_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeRefreshTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeRefreshTokenResponse) ProtoMessage() {}
+
+func (x *RevokeRefreshTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeRefreshTokenResponse.ProtoReflect.Descriptor instead.
+func (*RevokeRefreshTokenResponse) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{9}
+}
+
+type ValidateAccessTokenRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ValidateAccessTokenRequest) Reset() {
+	*x = ValidateAccessTokenRequest{}
+	mi := &file_sso_sso_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ValidateAccessTokenRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ValidateAccessTokenRequest) ProtoMessage() {}
+
+func (x *ValidateAccessTokenRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ValidateAccessTokenRequest.ProtoReflect.Descriptor instead.
+func (*ValidateAccessTokenRequest) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ValidateAccessTokenRequest) GetAccessToken() string {
 	if x != nil {
 		return x.AccessToken
 	}
 	return ""
 }
 
-func (x *ExchangeYandexCodeResponse) GetRefreshToken() string {
+type ValidateAccessTokenResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Valid         bool                   `protobuf:"varint,1,opt,name=valid,proto3" json:"valid,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ValidateAccessTokenResponse) Reset() {
+	*x = ValidateAccessTokenResponse{}
+	mi := &file_sso_sso_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ValidateAccessTokenResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ValidateAccessTokenResponse) ProtoMessage() {}
+
+func (x *ValidateAccessTokenResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_sso_proto_msgTypes[11]
 	if x != nil {
-		return x.RefreshToken
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ValidateAccessTokenResponse.ProtoReflect.Descriptor instead.
+func (*ValidateAccessTokenResponse) Descriptor() ([]byte, []int) {
+	return file_sso_sso_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *ValidateAccessTokenResponse) GetValid() bool {
+	if x != nil {
+		return x.Valid
+	}
+	return false
+}
+
+func (x *ValidateAccessTokenResponse) GetUserId() string {
+	if x != nil {
+		return x.UserId
 	}
 	return ""
 }
@@ -377,28 +569,40 @@ var File_sso_sso_proto protoreflect.FileDescriptor
 
 const file_sso_sso_proto_rawDesc = "" +
 	"\n" +
-	"\rsso/sso.proto\"\x18\n" +
-	"\x16StartGoogleAuthRequest\"<\n" +
-	"\x17StartGoogleAuthResponse\x12!\n" +
-	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"/\n" +
-	"\x19ExchangeGoogleCodeRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\"d\n" +
-	"\x1aExchangeGoogleCodeResponse\x12!\n" +
+	"\rsso/sso.proto\".\n" +
+	"\x10StartAuthRequest\x12\x1a\n" +
+	"\bprovider\x18\x01 \x01(\tR\bprovider\"6\n" +
+	"\x11StartAuthResponse\x12!\n" +
+	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"E\n" +
+	"\x13ExchangeCodeRequest\x12\x1a\n" +
+	"\bprovider\x18\x01 \x01(\tR\bprovider\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\"^\n" +
+	"\x14ExchangeCodeResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"\x18\n" +
-	"\x16StartYandexAuthRequest\"<\n" +
-	"\x17StartYandexAuthResponse\x12!\n" +
-	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"/\n" +
-	"\x19ExchangeYandexCodeRequest\x12\x12\n" +
-	"\x04code\x18\x01 \x01(\tR\x04code\"d\n" +
-	"\x1aExchangeYandexCodeResponse\x12!\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\":\n" +
+	"\x13RefreshTokenRequest\x12#\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"^\n" +
+	"\x14RefreshTokenResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken2\xb0\x02\n" +
-	"\x04Auth\x12D\n" +
-	"\x0fStartGoogleAuth\x12\x17.StartGoogleAuthRequest\x1a\x18.StartGoogleAuthResponse\x12M\n" +
-	"\x12ExchangeGoogleCode\x12\x1a.ExchangeGoogleCodeRequest\x1a\x1b.ExchangeGoogleCodeResponse\x12D\n" +
-	"\x0fStartYandexAuth\x12\x17.StartYandexAuthRequest\x1a\x18.StartYandexAuthResponse\x12M\n" +
-	"\x12ExchangeYandexCode\x12\x1a.ExchangeYandexCodeRequest\x1a\x1b.ExchangeYandexCodeResponseB\x1eZ\x1cSalivare-DevHub/sso.v1;ssov1b\x06proto3"
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
+	"\rLogoutRequest\x12#\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\x10\n" +
+	"\x0eLogoutResponse\"@\n" +
+	"\x19RevokeRefreshTokenRequest\x12#\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"\x1c\n" +
+	"\x1aRevokeRefreshTokenResponse\"?\n" +
+	"\x1aValidateAccessTokenRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"L\n" +
+	"\x1bValidateAccessTokenResponse\x12\x14\n" +
+	"\x05valid\x18\x01 \x01(\bR\x05valid\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\tR\x06userId2\x80\x03\n" +
+	"\x04Auth\x122\n" +
+	"\tStartAuth\x12\x11.StartAuthRequest\x1a\x12.StartAuthResponse\x12;\n" +
+	"\fExchangeCode\x12\x14.ExchangeCodeRequest\x1a\x15.ExchangeCodeResponse\x12;\n" +
+	"\fRefreshToken\x12\x14.RefreshTokenRequest\x1a\x15.RefreshTokenResponse\x12)\n" +
+	"\x06Logout\x12\x0e.LogoutRequest\x1a\x0f.LogoutResponse\x12M\n" +
+	"\x12RevokeRefreshToken\x12\x1a.RevokeRefreshTokenRequest\x1a\x1b.RevokeRefreshTokenResponse\x12P\n" +
+	"\x13ValidateAccessToken\x12\x1b.ValidateAccessTokenRequest\x1a\x1c.ValidateAccessTokenResponseB\x1eZ\x1cSalivare-DevHub/sso.v1;ssov1b\x06proto3"
 
 var (
 	file_sso_sso_proto_rawDescOnce sync.Once
@@ -412,31 +616,39 @@ func file_sso_sso_proto_rawDescGZIP() []byte {
 	return file_sso_sso_proto_rawDescData
 }
 
-var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_sso_sso_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_sso_sso_proto_goTypes = []any{
-	(*StartGoogleAuthRequest)(nil),     // 0: StartGoogleAuthRequest
-	(*StartGoogleAuthResponse)(nil),    // 1: StartGoogleAuthResponse
-	(*ExchangeGoogleCodeRequest)(nil),  // 2: ExchangeGoogleCodeRequest
-	(*ExchangeGoogleCodeResponse)(nil), // 3: ExchangeGoogleCodeResponse
-	(*StartYandexAuthRequest)(nil),     // 4: StartYandexAuthRequest
-	(*StartYandexAuthResponse)(nil),    // 5: StartYandexAuthResponse
-	(*ExchangeYandexCodeRequest)(nil),  // 6: ExchangeYandexCodeRequest
-	(*ExchangeYandexCodeResponse)(nil), // 7: ExchangeYandexCodeResponse
+	(*StartAuthRequest)(nil),            // 0: StartAuthRequest
+	(*StartAuthResponse)(nil),           // 1: StartAuthResponse
+	(*ExchangeCodeRequest)(nil),         // 2: ExchangeCodeRequest
+	(*ExchangeCodeResponse)(nil),        // 3: ExchangeCodeResponse
+	(*RefreshTokenRequest)(nil),         // 4: RefreshTokenRequest
+	(*RefreshTokenResponse)(nil),        // 5: RefreshTokenResponse
+	(*LogoutRequest)(nil),               // 6: LogoutRequest
+	(*LogoutResponse)(nil),              // 7: LogoutResponse
+	(*RevokeRefreshTokenRequest)(nil),   // 8: RevokeRefreshTokenRequest
+	(*RevokeRefreshTokenResponse)(nil),  // 9: RevokeRefreshTokenResponse
+	(*ValidateAccessTokenRequest)(nil),  // 10: ValidateAccessTokenRequest
+	(*ValidateAccessTokenResponse)(nil), // 11: ValidateAccessTokenResponse
 }
 var file_sso_sso_proto_depIdxs = []int32{
-	0, // 0: Auth.StartGoogleAuth:input_type -> StartGoogleAuthRequest
-	2, // 1: Auth.ExchangeGoogleCode:input_type -> ExchangeGoogleCodeRequest
-	4, // 2: Auth.StartYandexAuth:input_type -> StartYandexAuthRequest
-	6, // 3: Auth.ExchangeYandexCode:input_type -> ExchangeYandexCodeRequest
-	1, // 4: Auth.StartGoogleAuth:output_type -> StartGoogleAuthResponse
-	3, // 5: Auth.ExchangeGoogleCode:output_type -> ExchangeGoogleCodeResponse
-	5, // 6: Auth.StartYandexAuth:output_type -> StartYandexAuthResponse
-	7, // 7: Auth.ExchangeYandexCode:output_type -> ExchangeYandexCodeResponse
-	4, // [4:8] is the sub-list for method output_type
-	0, // [0:4] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: Auth.StartAuth:input_type -> StartAuthRequest
+	2,  // 1: Auth.ExchangeCode:input_type -> ExchangeCodeRequest
+	4,  // 2: Auth.RefreshToken:input_type -> RefreshTokenRequest
+	6,  // 3: Auth.Logout:input_type -> LogoutRequest
+	8,  // 4: Auth.RevokeRefreshToken:input_type -> RevokeRefreshTokenRequest
+	10, // 5: Auth.ValidateAccessToken:input_type -> ValidateAccessTokenRequest
+	1,  // 6: Auth.StartAuth:output_type -> StartAuthResponse
+	3,  // 7: Auth.ExchangeCode:output_type -> ExchangeCodeResponse
+	5,  // 8: Auth.RefreshToken:output_type -> RefreshTokenResponse
+	7,  // 9: Auth.Logout:output_type -> LogoutResponse
+	9,  // 10: Auth.RevokeRefreshToken:output_type -> RevokeRefreshTokenResponse
+	11, // 11: Auth.ValidateAccessToken:output_type -> ValidateAccessTokenResponse
+	6,  // [6:12] is the sub-list for method output_type
+	0,  // [0:6] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_sso_sso_proto_init() }
@@ -450,7 +662,7 @@ func file_sso_sso_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sso_sso_proto_rawDesc), len(file_sso_sso_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

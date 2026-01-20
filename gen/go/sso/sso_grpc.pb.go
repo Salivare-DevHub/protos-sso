@@ -19,22 +19,25 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Auth_StartGoogleAuth_FullMethodName    = "/Auth/StartGoogleAuth"
-	Auth_ExchangeGoogleCode_FullMethodName = "/Auth/ExchangeGoogleCode"
-	Auth_StartYandexAuth_FullMethodName    = "/Auth/StartYandexAuth"
-	Auth_ExchangeYandexCode_FullMethodName = "/Auth/ExchangeYandexCode"
+	Auth_StartAuth_FullMethodName           = "/Auth/StartAuth"
+	Auth_ExchangeCode_FullMethodName        = "/Auth/ExchangeCode"
+	Auth_RefreshToken_FullMethodName        = "/Auth/RefreshToken"
+	Auth_Logout_FullMethodName              = "/Auth/Logout"
+	Auth_RevokeRefreshToken_FullMethodName  = "/Auth/RevokeRefreshToken"
+	Auth_ValidateAccessToken_FullMethodName = "/Auth/ValidateAccessToken"
 )
 
 // AuthClient is the client API for Auth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
-	// Google OAuth2
-	StartGoogleAuth(ctx context.Context, in *StartGoogleAuthRequest, opts ...grpc.CallOption) (*StartGoogleAuthResponse, error)
-	ExchangeGoogleCode(ctx context.Context, in *ExchangeGoogleCodeRequest, opts ...grpc.CallOption) (*ExchangeGoogleCodeResponse, error)
-	// Yandex OAuth2
-	StartYandexAuth(ctx context.Context, in *StartYandexAuthRequest, opts ...grpc.CallOption) (*StartYandexAuthResponse, error)
-	ExchangeYandexCode(ctx context.Context, in *ExchangeYandexCodeRequest, opts ...grpc.CallOption) (*ExchangeYandexCodeResponse, error)
+	StartAuth(ctx context.Context, in *StartAuthRequest, opts ...grpc.CallOption) (*StartAuthResponse, error)
+	ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error)
+	// Token lifecycle
+	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
+	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
+	RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTokenRequest, opts ...grpc.CallOption) (*RevokeRefreshTokenResponse, error)
+	ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error)
 }
 
 type authClient struct {
@@ -45,40 +48,60 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 	return &authClient{cc}
 }
 
-func (c *authClient) StartGoogleAuth(ctx context.Context, in *StartGoogleAuthRequest, opts ...grpc.CallOption) (*StartGoogleAuthResponse, error) {
+func (c *authClient) StartAuth(ctx context.Context, in *StartAuthRequest, opts ...grpc.CallOption) (*StartAuthResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(StartGoogleAuthResponse)
-	err := c.cc.Invoke(ctx, Auth_StartGoogleAuth_FullMethodName, in, out, cOpts...)
+	out := new(StartAuthResponse)
+	err := c.cc.Invoke(ctx, Auth_StartAuth_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) ExchangeGoogleCode(ctx context.Context, in *ExchangeGoogleCodeRequest, opts ...grpc.CallOption) (*ExchangeGoogleCodeResponse, error) {
+func (c *authClient) ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ExchangeGoogleCodeResponse)
-	err := c.cc.Invoke(ctx, Auth_ExchangeGoogleCode_FullMethodName, in, out, cOpts...)
+	out := new(ExchangeCodeResponse)
+	err := c.cc.Invoke(ctx, Auth_ExchangeCode_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) StartYandexAuth(ctx context.Context, in *StartYandexAuthRequest, opts ...grpc.CallOption) (*StartYandexAuthResponse, error) {
+func (c *authClient) RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(StartYandexAuthResponse)
-	err := c.cc.Invoke(ctx, Auth_StartYandexAuth_FullMethodName, in, out, cOpts...)
+	out := new(RefreshTokenResponse)
+	err := c.cc.Invoke(ctx, Auth_RefreshToken_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) ExchangeYandexCode(ctx context.Context, in *ExchangeYandexCodeRequest, opts ...grpc.CallOption) (*ExchangeYandexCodeResponse, error) {
+func (c *authClient) Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ExchangeYandexCodeResponse)
-	err := c.cc.Invoke(ctx, Auth_ExchangeYandexCode_FullMethodName, in, out, cOpts...)
+	out := new(LogoutResponse)
+	err := c.cc.Invoke(ctx, Auth_Logout_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTokenRequest, opts ...grpc.CallOption) (*RevokeRefreshTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeRefreshTokenResponse)
+	err := c.cc.Invoke(ctx, Auth_RevokeRefreshToken_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ValidateAccessTokenResponse)
+	err := c.cc.Invoke(ctx, Auth_ValidateAccessToken_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -89,12 +112,13 @@ func (c *authClient) ExchangeYandexCode(ctx context.Context, in *ExchangeYandexC
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 type AuthServer interface {
-	// Google OAuth2
-	StartGoogleAuth(context.Context, *StartGoogleAuthRequest) (*StartGoogleAuthResponse, error)
-	ExchangeGoogleCode(context.Context, *ExchangeGoogleCodeRequest) (*ExchangeGoogleCodeResponse, error)
-	// Yandex OAuth2
-	StartYandexAuth(context.Context, *StartYandexAuthRequest) (*StartYandexAuthResponse, error)
-	ExchangeYandexCode(context.Context, *ExchangeYandexCodeRequest) (*ExchangeYandexCodeResponse, error)
+	StartAuth(context.Context, *StartAuthRequest) (*StartAuthResponse, error)
+	ExchangeCode(context.Context, *ExchangeCodeRequest) (*ExchangeCodeResponse, error)
+	// Token lifecycle
+	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
+	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
+	RevokeRefreshToken(context.Context, *RevokeRefreshTokenRequest) (*RevokeRefreshTokenResponse, error)
+	ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -105,17 +129,23 @@ type AuthServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAuthServer struct{}
 
-func (UnimplementedAuthServer) StartGoogleAuth(context.Context, *StartGoogleAuthRequest) (*StartGoogleAuthResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method StartGoogleAuth not implemented")
+func (UnimplementedAuthServer) StartAuth(context.Context, *StartAuthRequest) (*StartAuthResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method StartAuth not implemented")
 }
-func (UnimplementedAuthServer) ExchangeGoogleCode(context.Context, *ExchangeGoogleCodeRequest) (*ExchangeGoogleCodeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ExchangeGoogleCode not implemented")
+func (UnimplementedAuthServer) ExchangeCode(context.Context, *ExchangeCodeRequest) (*ExchangeCodeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ExchangeCode not implemented")
 }
-func (UnimplementedAuthServer) StartYandexAuth(context.Context, *StartYandexAuthRequest) (*StartYandexAuthResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method StartYandexAuth not implemented")
+func (UnimplementedAuthServer) RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RefreshToken not implemented")
 }
-func (UnimplementedAuthServer) ExchangeYandexCode(context.Context, *ExchangeYandexCodeRequest) (*ExchangeYandexCodeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ExchangeYandexCode not implemented")
+func (UnimplementedAuthServer) Logout(context.Context, *LogoutRequest) (*LogoutResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Logout not implemented")
+}
+func (UnimplementedAuthServer) RevokeRefreshToken(context.Context, *RevokeRefreshTokenRequest) (*RevokeRefreshTokenResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RevokeRefreshToken not implemented")
+}
+func (UnimplementedAuthServer) ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ValidateAccessToken not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -138,74 +168,110 @@ func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
 	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
-func _Auth_StartGoogleAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartGoogleAuthRequest)
+func _Auth_StartAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StartAuthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).StartGoogleAuth(ctx, in)
+		return srv.(AuthServer).StartAuth(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_StartGoogleAuth_FullMethodName,
+		FullMethod: Auth_StartAuth_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).StartGoogleAuth(ctx, req.(*StartGoogleAuthRequest))
+		return srv.(AuthServer).StartAuth(ctx, req.(*StartAuthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_ExchangeGoogleCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ExchangeGoogleCodeRequest)
+func _Auth_ExchangeCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExchangeCodeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).ExchangeGoogleCode(ctx, in)
+		return srv.(AuthServer).ExchangeCode(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_ExchangeGoogleCode_FullMethodName,
+		FullMethod: Auth_ExchangeCode_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ExchangeGoogleCode(ctx, req.(*ExchangeGoogleCodeRequest))
+		return srv.(AuthServer).ExchangeCode(ctx, req.(*ExchangeCodeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_StartYandexAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartYandexAuthRequest)
+func _Auth_RefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefreshTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).StartYandexAuth(ctx, in)
+		return srv.(AuthServer).RefreshToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_StartYandexAuth_FullMethodName,
+		FullMethod: Auth_RefreshToken_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).StartYandexAuth(ctx, req.(*StartYandexAuthRequest))
+		return srv.(AuthServer).RefreshToken(ctx, req.(*RefreshTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_ExchangeYandexCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ExchangeYandexCodeRequest)
+func _Auth_Logout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogoutRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AuthServer).ExchangeYandexCode(ctx, in)
+		return srv.(AuthServer).Logout(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Auth_ExchangeYandexCode_FullMethodName,
+		FullMethod: Auth_Logout_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ExchangeYandexCode(ctx, req.(*ExchangeYandexCodeRequest))
+		return srv.(AuthServer).Logout(ctx, req.(*LogoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_RevokeRefreshToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeRefreshTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).RevokeRefreshToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_RevokeRefreshToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).RevokeRefreshToken(ctx, req.(*RevokeRefreshTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_ValidateAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateAccessTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).ValidateAccessToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_ValidateAccessToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).ValidateAccessToken(ctx, req.(*ValidateAccessTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -218,20 +284,28 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "StartGoogleAuth",
-			Handler:    _Auth_StartGoogleAuth_Handler,
+			MethodName: "StartAuth",
+			Handler:    _Auth_StartAuth_Handler,
 		},
 		{
-			MethodName: "ExchangeGoogleCode",
-			Handler:    _Auth_ExchangeGoogleCode_Handler,
+			MethodName: "ExchangeCode",
+			Handler:    _Auth_ExchangeCode_Handler,
 		},
 		{
-			MethodName: "StartYandexAuth",
-			Handler:    _Auth_StartYandexAuth_Handler,
+			MethodName: "RefreshToken",
+			Handler:    _Auth_RefreshToken_Handler,
 		},
 		{
-			MethodName: "ExchangeYandexCode",
-			Handler:    _Auth_ExchangeYandexCode_Handler,
+			MethodName: "Logout",
+			Handler:    _Auth_Logout_Handler,
+		},
+		{
+			MethodName: "RevokeRefreshToken",
+			Handler:    _Auth_RevokeRefreshToken_Handler,
+		},
+		{
+			MethodName: "ValidateAccessToken",
+			Handler:    _Auth_ValidateAccessToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
