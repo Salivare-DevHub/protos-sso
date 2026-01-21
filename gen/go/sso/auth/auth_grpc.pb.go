@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.6.0
 // - protoc             v6.33.2
-// source: sso/sso.proto
+// source: sso/auth/auth.proto
 
-package ssov1
+package authv1
 
 import (
 	context "context"
@@ -19,12 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Auth_StartAuth_FullMethodName           = "/Auth/StartAuth"
-	Auth_ExchangeCode_FullMethodName        = "/Auth/ExchangeCode"
-	Auth_RefreshToken_FullMethodName        = "/Auth/RefreshToken"
-	Auth_Logout_FullMethodName              = "/Auth/Logout"
-	Auth_RevokeRefreshToken_FullMethodName  = "/Auth/RevokeRefreshToken"
-	Auth_ValidateAccessToken_FullMethodName = "/Auth/ValidateAccessToken"
+	Auth_StartAuth_FullMethodName          = "/Auth/StartAuth"
+	Auth_ExchangeCode_FullMethodName       = "/Auth/ExchangeCode"
+	Auth_RefreshToken_FullMethodName       = "/Auth/RefreshToken"
+	Auth_Logout_FullMethodName             = "/Auth/Logout"
+	Auth_RevokeRefreshToken_FullMethodName = "/Auth/RevokeRefreshToken"
 )
 
 // AuthClient is the client API for Auth service.
@@ -33,11 +32,9 @@ const (
 type AuthClient interface {
 	StartAuth(ctx context.Context, in *StartAuthRequest, opts ...grpc.CallOption) (*StartAuthResponse, error)
 	ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error)
-	// Token lifecycle
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTokenRequest, opts ...grpc.CallOption) (*RevokeRefreshTokenResponse, error)
-	ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error)
 }
 
 type authClient struct {
@@ -98,27 +95,15 @@ func (c *authClient) RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTo
 	return out, nil
 }
 
-func (c *authClient) ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ValidateAccessTokenResponse)
-	err := c.cc.Invoke(ctx, Auth_ValidateAccessToken_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 type AuthServer interface {
 	StartAuth(context.Context, *StartAuthRequest) (*StartAuthResponse, error)
 	ExchangeCode(context.Context, *ExchangeCodeRequest) (*ExchangeCodeResponse, error)
-	// Token lifecycle
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	RevokeRefreshToken(context.Context, *RevokeRefreshTokenRequest) (*RevokeRefreshTokenResponse, error)
-	ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -143,9 +128,6 @@ func (UnimplementedAuthServer) Logout(context.Context, *LogoutRequest) (*LogoutR
 }
 func (UnimplementedAuthServer) RevokeRefreshToken(context.Context, *RevokeRefreshTokenRequest) (*RevokeRefreshTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RevokeRefreshToken not implemented")
-}
-func (UnimplementedAuthServer) ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ValidateAccessToken not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 func (UnimplementedAuthServer) testEmbeddedByValue()              {}
@@ -258,24 +240,6 @@ func _Auth_RevokeRefreshToken_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_ValidateAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ValidateAccessTokenRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).ValidateAccessToken(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Auth_ValidateAccessToken_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).ValidateAccessToken(ctx, req.(*ValidateAccessTokenRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -303,11 +267,7 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "RevokeRefreshToken",
 			Handler:    _Auth_RevokeRefreshToken_Handler,
 		},
-		{
-			MethodName: "ValidateAccessToken",
-			Handler:    _Auth_ValidateAccessToken_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "sso/sso.proto",
+	Metadata: "sso/auth/auth.proto",
 }
