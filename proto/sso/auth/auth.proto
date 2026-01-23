@@ -20,7 +20,7 @@ service Auth {
 
 message StartAuthRequest {
   Provider provider = 1;
-  string app_id = 2;
+  int64 app_id = 2;
 }
 
 message StartAuthResponse {
@@ -30,7 +30,7 @@ message StartAuthResponse {
 message ExchangeCodeRequest {
   Provider provider = 1;
   string code = 2;
-  string app_id = 3;
+  int64 app_id = 3;
 }
 
 message ExchangeCodeResponse {
@@ -40,7 +40,7 @@ message ExchangeCodeResponse {
 
 message RefreshTokenRequest {
   string refresh_token = 1;
-  string app_id = 2;
+  int64 app_id = 2;
 }
 
 message RefreshTokenResponse {

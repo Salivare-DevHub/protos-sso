@@ -73,7 +73,7 @@ func (Provider) EnumDescriptor() ([]byte, []int) {
 type StartAuthRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
-	AppId         string                 `protobuf:"bytes,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	AppId         int64                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -115,11 +115,11 @@ func (x *StartAuthRequest) GetProvider() Provider {
 	return Provider_PROVIDER_UNSPECIFIED
 }
 
-func (x *StartAuthRequest) GetAppId() string {
+func (x *StartAuthRequest) GetAppId() int64 {
 	if x != nil {
 		return x.AppId
 	}
-	return ""
+	return 0
 }
 
 type StartAuthResponse struct {
@@ -170,7 +170,7 @@ type ExchangeCodeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
 	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
-	AppId         string                 `protobuf:"bytes,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	AppId         int64                  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -219,11 +219,11 @@ func (x *ExchangeCodeRequest) GetCode() string {
 	return ""
 }
 
-func (x *ExchangeCodeRequest) GetAppId() string {
+func (x *ExchangeCodeRequest) GetAppId() int64 {
 	if x != nil {
 		return x.AppId
 	}
-	return ""
+	return 0
 }
 
 type ExchangeCodeResponse struct {
@@ -281,7 +281,7 @@ func (x *ExchangeCodeResponse) GetRefreshToken() string {
 type RefreshTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	AppId         string                 `protobuf:"bytes,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
+	AppId         int64                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -323,11 +323,11 @@ func (x *RefreshTokenRequest) GetRefreshToken() string {
 	return ""
 }
 
-func (x *RefreshTokenRequest) GetAppId() string {
+func (x *RefreshTokenRequest) GetAppId() int64 {
 	if x != nil {
 		return x.AppId
 	}
-	return ""
+	return 0
 }
 
 type RefreshTokenResponse struct {
@@ -549,19 +549,19 @@ const file_sso_auth_auth_proto_rawDesc = "" +
 	"\x13sso/auth/auth.proto\"P\n" +
 	"\x10StartAuthRequest\x12%\n" +
 	"\bprovider\x18\x01 \x01(\x0e2\t.ProviderR\bprovider\x12\x15\n" +
-	"\x06app_id\x18\x02 \x01(\tR\x05appId\"6\n" +
+	"\x06app_id\x18\x02 \x01(\x03R\x05appId\"6\n" +
 	"\x11StartAuthResponse\x12!\n" +
 	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"g\n" +
 	"\x13ExchangeCodeRequest\x12%\n" +
 	"\bprovider\x18\x01 \x01(\x0e2\t.ProviderR\bprovider\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\tR\x05appId\"^\n" +
+	"\x06app_id\x18\x03 \x01(\x03R\x05appId\"^\n" +
 	"\x14ExchangeCodeResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"Q\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
-	"\x06app_id\x18\x02 \x01(\tR\x05appId\"^\n" +
+	"\x06app_id\x18\x02 \x01(\x03R\x05appId\"^\n" +
 	"\x14RefreshTokenResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
