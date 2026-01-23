@@ -10,21 +10,12 @@ enum Provider {
 
 
 service Auth {
-  rpc StartAuth(StartAuthRequest) returns (StartAuthResponse);
   rpc ExchangeCode(ExchangeCodeRequest) returns (ExchangeCodeResponse);
+  rpc UserDetails(UserDetailsRequest) returns (UserDetailsResponse);
 
   rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
   rpc Logout(LogoutRequest) returns (LogoutResponse);
   rpc RevokeRefreshToken(RevokeRefreshTokenRequest) returns (RevokeRefreshTokenResponse);
-}
-
-message StartAuthRequest {
-  Provider provider = 1;
-  int64 app_id = 2;
-}
-
-message StartAuthResponse {
-  string redirect_url = 1;
 }
 
 message ExchangeCodeRequest {
@@ -36,6 +27,16 @@ message ExchangeCodeRequest {
 message ExchangeCodeResponse {
   string access_token = 1;
   string refresh_token = 2;
+}
+
+message UserDetailsRequest {
+  string access_token = 1;
+}
+
+message UserDetailsResponse {
+  int64 user_id = 1;
+  string email = 2;
+  string name = 3;
 }
 
 message RefreshTokenRequest {

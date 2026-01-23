@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Auth_StartAuth_FullMethodName          = "/Auth/StartAuth"
 	Auth_ExchangeCode_FullMethodName       = "/Auth/ExchangeCode"
+	Auth_UserDetails_FullMethodName        = "/Auth/UserDetails"
 	Auth_RefreshToken_FullMethodName       = "/Auth/RefreshToken"
 	Auth_Logout_FullMethodName             = "/Auth/Logout"
 	Auth_RevokeRefreshToken_FullMethodName = "/Auth/RevokeRefreshToken"
@@ -30,8 +30,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
-	StartAuth(ctx context.Context, in *StartAuthRequest, opts ...grpc.CallOption) (*StartAuthResponse, error)
 	ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error)
+	UserDetails(ctx context.Context, in *UserDetailsRequest, opts ...grpc.CallOption) (*UserDetailsResponse, error)
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTokenRequest, opts ...grpc.CallOption) (*RevokeRefreshTokenResponse, error)
@@ -45,20 +45,20 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 	return &authClient{cc}
 }
 
-func (c *authClient) StartAuth(ctx context.Context, in *StartAuthRequest, opts ...grpc.CallOption) (*StartAuthResponse, error) {
+func (c *authClient) ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(StartAuthResponse)
-	err := c.cc.Invoke(ctx, Auth_StartAuth_FullMethodName, in, out, cOpts...)
+	out := new(ExchangeCodeResponse)
+	err := c.cc.Invoke(ctx, Auth_ExchangeCode_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) ExchangeCode(ctx context.Context, in *ExchangeCodeRequest, opts ...grpc.CallOption) (*ExchangeCodeResponse, error) {
+func (c *authClient) UserDetails(ctx context.Context, in *UserDetailsRequest, opts ...grpc.CallOption) (*UserDetailsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ExchangeCodeResponse)
-	err := c.cc.Invoke(ctx, Auth_ExchangeCode_FullMethodName, in, out, cOpts...)
+	out := new(UserDetailsResponse)
+	err := c.cc.Invoke(ctx, Auth_UserDetails_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +99,8 @@ func (c *authClient) RevokeRefreshToken(ctx context.Context, in *RevokeRefreshTo
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility.
 type AuthServer interface {
-	StartAuth(context.Context, *StartAuthRequest) (*StartAuthResponse, error)
 	ExchangeCode(context.Context, *ExchangeCodeRequest) (*ExchangeCodeResponse, error)
+	UserDetails(context.Context, *UserDetailsRequest) (*UserDetailsResponse, error)
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	RevokeRefreshToken(context.Context, *RevokeRefreshTokenRequest) (*RevokeRefreshTokenResponse, error)
@@ -114,11 +114,11 @@ type AuthServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAuthServer struct{}
 
-func (UnimplementedAuthServer) StartAuth(context.Context, *StartAuthRequest) (*StartAuthResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method StartAuth not implemented")
-}
 func (UnimplementedAuthServer) ExchangeCode(context.Context, *ExchangeCodeRequest) (*ExchangeCodeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ExchangeCode not implemented")
+}
+func (UnimplementedAuthServer) UserDetails(context.Context, *UserDetailsRequest) (*UserDetailsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method UserDetails not implemented")
 }
 func (UnimplementedAuthServer) RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method RefreshToken not implemented")
@@ -150,24 +150,6 @@ func RegisterAuthServer(s grpc.ServiceRegistrar, srv AuthServer) {
 	s.RegisterService(&Auth_ServiceDesc, srv)
 }
 
-func _Auth_StartAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartAuthRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).StartAuth(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Auth_StartAuth_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).StartAuth(ctx, req.(*StartAuthRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Auth_ExchangeCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ExchangeCodeRequest)
 	if err := dec(in); err != nil {
@@ -182,6 +164,24 @@ func _Auth_ExchangeCode_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).ExchangeCode(ctx, req.(*ExchangeCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_UserDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).UserDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_UserDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).UserDetails(ctx, req.(*UserDetailsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -248,12 +248,12 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "StartAuth",
-			Handler:    _Auth_StartAuth_Handler,
-		},
-		{
 			MethodName: "ExchangeCode",
 			Handler:    _Auth_ExchangeCode_Handler,
+		},
+		{
+			MethodName: "UserDetails",
+			Handler:    _Auth_UserDetails_Handler,
 		},
 		{
 			MethodName: "RefreshToken",

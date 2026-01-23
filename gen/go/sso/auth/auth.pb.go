@@ -70,102 +70,6 @@ func (Provider) EnumDescriptor() ([]byte, []int) {
 	return file_sso_auth_auth_proto_rawDescGZIP(), []int{0}
 }
 
-type StartAuthRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
-	AppId         int64                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *StartAuthRequest) Reset() {
-	*x = StartAuthRequest{}
-	mi := &file_sso_auth_auth_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *StartAuthRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*StartAuthRequest) ProtoMessage() {}
-
-func (x *StartAuthRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_auth_auth_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use StartAuthRequest.ProtoReflect.Descriptor instead.
-func (*StartAuthRequest) Descriptor() ([]byte, []int) {
-	return file_sso_auth_auth_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *StartAuthRequest) GetProvider() Provider {
-	if x != nil {
-		return x.Provider
-	}
-	return Provider_PROVIDER_UNSPECIFIED
-}
-
-func (x *StartAuthRequest) GetAppId() int64 {
-	if x != nil {
-		return x.AppId
-	}
-	return 0
-}
-
-type StartAuthResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	RedirectUrl   string                 `protobuf:"bytes,1,opt,name=redirect_url,json=redirectUrl,proto3" json:"redirect_url,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *StartAuthResponse) Reset() {
-	*x = StartAuthResponse{}
-	mi := &file_sso_auth_auth_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *StartAuthResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*StartAuthResponse) ProtoMessage() {}
-
-func (x *StartAuthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_auth_auth_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use StartAuthResponse.ProtoReflect.Descriptor instead.
-func (*StartAuthResponse) Descriptor() ([]byte, []int) {
-	return file_sso_auth_auth_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *StartAuthResponse) GetRedirectUrl() string {
-	if x != nil {
-		return x.RedirectUrl
-	}
-	return ""
-}
-
 type ExchangeCodeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
@@ -177,7 +81,7 @@ type ExchangeCodeRequest struct {
 
 func (x *ExchangeCodeRequest) Reset() {
 	*x = ExchangeCodeRequest{}
-	mi := &file_sso_auth_auth_proto_msgTypes[2]
+	mi := &file_sso_auth_auth_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -189,7 +93,7 @@ func (x *ExchangeCodeRequest) String() string {
 func (*ExchangeCodeRequest) ProtoMessage() {}
 
 func (x *ExchangeCodeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_auth_auth_proto_msgTypes[2]
+	mi := &file_sso_auth_auth_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -202,7 +106,7 @@ func (x *ExchangeCodeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExchangeCodeRequest.ProtoReflect.Descriptor instead.
 func (*ExchangeCodeRequest) Descriptor() ([]byte, []int) {
-	return file_sso_auth_auth_proto_rawDescGZIP(), []int{2}
+	return file_sso_auth_auth_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ExchangeCodeRequest) GetProvider() Provider {
@@ -236,7 +140,7 @@ type ExchangeCodeResponse struct {
 
 func (x *ExchangeCodeResponse) Reset() {
 	*x = ExchangeCodeResponse{}
-	mi := &file_sso_auth_auth_proto_msgTypes[3]
+	mi := &file_sso_auth_auth_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -248,7 +152,7 @@ func (x *ExchangeCodeResponse) String() string {
 func (*ExchangeCodeResponse) ProtoMessage() {}
 
 func (x *ExchangeCodeResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_sso_auth_auth_proto_msgTypes[3]
+	mi := &file_sso_auth_auth_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -261,7 +165,7 @@ func (x *ExchangeCodeResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ExchangeCodeResponse.ProtoReflect.Descriptor instead.
 func (*ExchangeCodeResponse) Descriptor() ([]byte, []int) {
-	return file_sso_auth_auth_proto_rawDescGZIP(), []int{3}
+	return file_sso_auth_auth_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ExchangeCodeResponse) GetAccessToken() string {
@@ -274,6 +178,110 @@ func (x *ExchangeCodeResponse) GetAccessToken() string {
 func (x *ExchangeCodeResponse) GetRefreshToken() string {
 	if x != nil {
 		return x.RefreshToken
+	}
+	return ""
+}
+
+type UserDetailsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserDetailsRequest) Reset() {
+	*x = UserDetailsRequest{}
+	mi := &file_sso_auth_auth_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserDetailsRequest) ProtoMessage() {}
+
+func (x *UserDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_auth_auth_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserDetailsRequest.ProtoReflect.Descriptor instead.
+func (*UserDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_sso_auth_auth_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UserDetailsRequest) GetAccessToken() string {
+	if x != nil {
+		return x.AccessToken
+	}
+	return ""
+}
+
+type UserDetailsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserDetailsResponse) Reset() {
+	*x = UserDetailsResponse{}
+	mi := &file_sso_auth_auth_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserDetailsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserDetailsResponse) ProtoMessage() {}
+
+func (x *UserDetailsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_sso_auth_auth_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserDetailsResponse.ProtoReflect.Descriptor instead.
+func (*UserDetailsResponse) Descriptor() ([]byte, []int) {
+	return file_sso_auth_auth_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UserDetailsResponse) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *UserDetailsResponse) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *UserDetailsResponse) GetName() string {
+	if x != nil {
+		return x.Name
 	}
 	return ""
 }
@@ -546,19 +554,20 @@ var File_sso_auth_auth_proto protoreflect.FileDescriptor
 
 const file_sso_auth_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x13sso/auth/auth.proto\"P\n" +
-	"\x10StartAuthRequest\x12%\n" +
-	"\bprovider\x18\x01 \x01(\x0e2\t.ProviderR\bprovider\x12\x15\n" +
-	"\x06app_id\x18\x02 \x01(\x03R\x05appId\"6\n" +
-	"\x11StartAuthResponse\x12!\n" +
-	"\fredirect_url\x18\x01 \x01(\tR\vredirectUrl\"g\n" +
+	"\x13sso/auth/auth.proto\"g\n" +
 	"\x13ExchangeCodeRequest\x12%\n" +
 	"\bprovider\x18\x01 \x01(\x0e2\t.ProviderR\bprovider\x12\x12\n" +
 	"\x04code\x18\x02 \x01(\tR\x04code\x12\x15\n" +
 	"\x06app_id\x18\x03 \x01(\x03R\x05appId\"^\n" +
 	"\x14ExchangeCodeResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"Q\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"7\n" +
+	"\x12UserDetailsRequest\x12!\n" +
+	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\"X\n" +
+	"\x13UserDetailsResponse\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\"Q\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
 	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
 	"\x06app_id\x18\x02 \x01(\x03R\x05appId\"^\n" +
@@ -576,10 +585,10 @@ const file_sso_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"\x06GOOGLE\x10\x01\x12\n" +
 	"\n" +
-	"\x06YANDEX\x10\x022\xae\x02\n" +
-	"\x04Auth\x122\n" +
-	"\tStartAuth\x12\x11.StartAuthRequest\x1a\x12.StartAuthResponse\x12;\n" +
-	"\fExchangeCode\x12\x14.ExchangeCodeRequest\x1a\x15.ExchangeCodeResponse\x12;\n" +
+	"\x06YANDEX\x10\x022\xb4\x02\n" +
+	"\x04Auth\x12;\n" +
+	"\fExchangeCode\x12\x14.ExchangeCodeRequest\x1a\x15.ExchangeCodeResponse\x128\n" +
+	"\vUserDetails\x12\x13.UserDetailsRequest\x1a\x14.UserDetailsResponse\x12;\n" +
 	"\fRefreshToken\x12\x14.RefreshTokenRequest\x1a\x15.RefreshTokenResponse\x12)\n" +
 	"\x06Logout\x12\x0e.LogoutRequest\x1a\x0f.LogoutResponse\x12M\n" +
 	"\x12RevokeRefreshToken\x12\x1a.RevokeRefreshTokenRequest\x1a\x1b.RevokeRefreshTokenResponseB$Z\"Salivare-DevHub/sso.auth.v1;authv1b\x06proto3"
@@ -600,10 +609,10 @@ var file_sso_auth_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_sso_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_sso_auth_auth_proto_goTypes = []any{
 	(Provider)(0),                      // 0: Provider
-	(*StartAuthRequest)(nil),           // 1: StartAuthRequest
-	(*StartAuthResponse)(nil),          // 2: StartAuthResponse
-	(*ExchangeCodeRequest)(nil),        // 3: ExchangeCodeRequest
-	(*ExchangeCodeResponse)(nil),       // 4: ExchangeCodeResponse
+	(*ExchangeCodeRequest)(nil),        // 1: ExchangeCodeRequest
+	(*ExchangeCodeResponse)(nil),       // 2: ExchangeCodeResponse
+	(*UserDetailsRequest)(nil),         // 3: UserDetailsRequest
+	(*UserDetailsResponse)(nil),        // 4: UserDetailsResponse
 	(*RefreshTokenRequest)(nil),        // 5: RefreshTokenRequest
 	(*RefreshTokenResponse)(nil),       // 6: RefreshTokenResponse
 	(*LogoutRequest)(nil),              // 7: LogoutRequest
@@ -612,23 +621,22 @@ var file_sso_auth_auth_proto_goTypes = []any{
 	(*RevokeRefreshTokenResponse)(nil), // 10: RevokeRefreshTokenResponse
 }
 var file_sso_auth_auth_proto_depIdxs = []int32{
-	0,  // 0: StartAuthRequest.provider:type_name -> Provider
-	0,  // 1: ExchangeCodeRequest.provider:type_name -> Provider
-	1,  // 2: Auth.StartAuth:input_type -> StartAuthRequest
-	3,  // 3: Auth.ExchangeCode:input_type -> ExchangeCodeRequest
-	5,  // 4: Auth.RefreshToken:input_type -> RefreshTokenRequest
-	7,  // 5: Auth.Logout:input_type -> LogoutRequest
-	9,  // 6: Auth.RevokeRefreshToken:input_type -> RevokeRefreshTokenRequest
-	2,  // 7: Auth.StartAuth:output_type -> StartAuthResponse
-	4,  // 8: Auth.ExchangeCode:output_type -> ExchangeCodeResponse
-	6,  // 9: Auth.RefreshToken:output_type -> RefreshTokenResponse
-	8,  // 10: Auth.Logout:output_type -> LogoutResponse
-	10, // 11: Auth.RevokeRefreshToken:output_type -> RevokeRefreshTokenResponse
-	7,  // [7:12] is the sub-list for method output_type
-	2,  // [2:7] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	0,  // 0: ExchangeCodeRequest.provider:type_name -> Provider
+	1,  // 1: Auth.ExchangeCode:input_type -> ExchangeCodeRequest
+	3,  // 2: Auth.UserDetails:input_type -> UserDetailsRequest
+	5,  // 3: Auth.RefreshToken:input_type -> RefreshTokenRequest
+	7,  // 4: Auth.Logout:input_type -> LogoutRequest
+	9,  // 5: Auth.RevokeRefreshToken:input_type -> RevokeRefreshTokenRequest
+	2,  // 6: Auth.ExchangeCode:output_type -> ExchangeCodeResponse
+	4,  // 7: Auth.UserDetails:output_type -> UserDetailsResponse
+	6,  // 8: Auth.RefreshToken:output_type -> RefreshTokenResponse
+	8,  // 9: Auth.Logout:output_type -> LogoutResponse
+	10, // 10: Auth.RevokeRefreshToken:output_type -> RevokeRefreshTokenResponse
+	6,  // [6:11] is the sub-list for method output_type
+	1,  // [1:6] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_sso_auth_auth_proto_init() }
