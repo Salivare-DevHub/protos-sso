@@ -12,6 +12,9 @@ This repository contains the gRPC contract for the SSO (Auth) service, generated
 ```bash
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
+go install github.com/bufbuild/buf/cmd/buf@latest
+
 Make sure $(go env GOPATH)/bin or GOBIN is added to your PATH.
 ```
 - Generate Go code from proto
@@ -36,7 +39,9 @@ command -v protoc-gen-go-grpc >/dev/null 2>&1 || go install google.golang.org/gr
 
 protoc -I proto proto/sso/sso.proto \
 --go_out=./gen/go --go_opt=paths=source_relative \
---go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative
+--go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative \
+--openapiv2_out ./gen/openapi
+
 ```
 - Make it executable and run:
 

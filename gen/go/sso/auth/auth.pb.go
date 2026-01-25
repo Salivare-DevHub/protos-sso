@@ -7,6 +7,8 @@
 package authv1
 
 import (
+	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -72,9 +74,8 @@ func (Provider) EnumDescriptor() ([]byte, []int) {
 
 type ExchangeCodeRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=Provider" json:"provider,omitempty"`
+	Provider      Provider               `protobuf:"varint,1,opt,name=provider,proto3,enum=sso.auth.v1.Provider" json:"provider,omitempty"`
 	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
-	AppId         int64                  `protobuf:"varint,3,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -121,13 +122,6 @@ func (x *ExchangeCodeRequest) GetCode() string {
 		return x.Code
 	}
 	return ""
-}
-
-func (x *ExchangeCodeRequest) GetAppId() int64 {
-	if x != nil {
-		return x.AppId
-	}
-	return 0
 }
 
 type ExchangeCodeResponse struct {
@@ -289,7 +283,6 @@ func (x *UserDetailsResponse) GetName() string {
 type RefreshTokenRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RefreshToken  string                 `protobuf:"bytes,1,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	AppId         int64                  `protobuf:"varint,2,opt,name=app_id,json=appId,proto3" json:"app_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -329,13 +322,6 @@ func (x *RefreshTokenRequest) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
-}
-
-func (x *RefreshTokenRequest) GetAppId() int64 {
-	if x != nil {
-		return x.AppId
-	}
-	return 0
 }
 
 type RefreshTokenResponse struct {
@@ -554,11 +540,10 @@ var File_sso_auth_auth_proto protoreflect.FileDescriptor
 
 const file_sso_auth_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x13sso/auth/auth.proto\"g\n" +
-	"\x13ExchangeCodeRequest\x12%\n" +
-	"\bprovider\x18\x01 \x01(\x0e2\t.ProviderR\bprovider\x12\x12\n" +
-	"\x04code\x18\x02 \x01(\tR\x04code\x12\x15\n" +
-	"\x06app_id\x18\x03 \x01(\x03R\x05appId\"^\n" +
+	"\x13sso/auth/auth.proto\x12\vsso.auth.v1\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\\\n" +
+	"\x13ExchangeCodeRequest\x121\n" +
+	"\bprovider\x18\x01 \x01(\x0e2\x15.sso.auth.v1.ProviderR\bprovider\x12\x12\n" +
+	"\x04code\x18\x02 \x01(\tR\x04code\"^\n" +
 	"\x14ExchangeCodeResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"7\n" +
@@ -567,10 +552,9 @@ const file_sso_auth_auth_proto_rawDesc = "" +
 	"\x13UserDetailsResponse\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x12\x12\n" +
-	"\x04name\x18\x03 \x01(\tR\x04name\"Q\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\":\n" +
 	"\x13RefreshTokenRequest\x12#\n" +
-	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\x12\x15\n" +
-	"\x06app_id\x18\x02 \x01(\x03R\x05appId\"^\n" +
+	"\rrefresh_token\x18\x01 \x01(\tR\frefreshToken\"^\n" +
 	"\x14RefreshTokenResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\"4\n" +
@@ -585,13 +569,25 @@ const file_sso_auth_auth_proto_rawDesc = "" +
 	"\n" +
 	"\x06GOOGLE\x10\x01\x12\n" +
 	"\n" +
-	"\x06YANDEX\x10\x022\xb4\x02\n" +
-	"\x04Auth\x12;\n" +
-	"\fExchangeCode\x12\x14.ExchangeCodeRequest\x1a\x15.ExchangeCodeResponse\x128\n" +
-	"\vUserDetails\x12\x13.UserDetailsRequest\x1a\x14.UserDetailsResponse\x12;\n" +
-	"\fRefreshToken\x12\x14.RefreshTokenRequest\x1a\x15.RefreshTokenResponse\x12)\n" +
-	"\x06Logout\x12\x0e.LogoutRequest\x1a\x0f.LogoutResponse\x12M\n" +
-	"\x12RevokeRefreshToken\x12\x1a.RevokeRefreshTokenRequest\x1a\x1b.RevokeRefreshTokenResponseB$Z\"Salivare-DevHub/sso.auth.v1;authv1b\x06proto3"
+	"\x06YANDEX\x10\x022\x8d\t\n" +
+	"\x04Auth\x12\xfa\x01\n" +
+	"\fExchangeCode\x12 .sso.auth.v1.ExchangeCodeRequest\x1a!.sso.auth.v1.ExchangeCodeResponse\"\xa4\x01\x92A\x84\x01\n" +
+	"\x04Auth\x127Обмен OAuth2 code на access/refresh токены\x1aCТребуются заголовки: X-Client-Id, X-Client-Secret\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/v1/auth/exchange\x12\x8e\x02\n" +
+	"\vUserDetails\x12\x1f.sso.auth.v1.UserDetailsRequest\x1a .sso.auth.v1.UserDetailsResponse\"\xbb\x01\x92A\xa2\x01\n" +
+	"\x04Auth\x12CПолучение информации о пользователе\x1aCТребуется заголовок Authorization: Bearer <token>b\x10\n" +
+	"\x0e\n" +
+	"\n" +
+	"BearerAuth\x12\x00\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/auth/user\x12\xe4\x01\n" +
+	"\fRefreshToken\x12 .sso.auth.v1.RefreshTokenRequest\x1a!.sso.auth.v1.RefreshTokenResponse\"\x8e\x01\x92Ap\n" +
+	"\x04Auth\x12#Обновление токенов\x1aCТребуются заголовки: X-Client-Id, X-Client-Secret\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/v1/auth/refresh\x12\xb8\x01\n" +
+	"\x06Logout\x12\x1a.sso.auth.v1.LogoutRequest\x1a\x1b.sso.auth.v1.LogoutResponse\"u\x92AX\n" +
+	"\x04Auth\x12#Выход пользователя\x1a+Инвалидация refresh токена\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/auth/logout\x12\xd4\x01\n" +
+	"\x12RevokeRefreshToken\x12&.sso.auth.v1.RevokeRefreshTokenRequest\x1a'.sso.auth.v1.RevokeRefreshTokenResponse\"m\x92AP\n" +
+	"\x04Auth\x12HПринудительная инвалидация refresh токена\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/v1/auth/revokeB\xa0\x02\x92A\xf8\x01\x12\x92\x01\n" +
+	"\fSSO Auth API\x12}OAuth2 авторизация, обмен кодов, обновление токенов, получение профиля.2\x031.0*\x01\x022\x10application/json:\x10application/jsonZ:\n" +
+	"8\n" +
+	"\n" +
+	"BearerAuth\x12*\b\x02\x12\x15Bearer <access_token>\x1a\rAuthorization \x02Z\"Salivare-DevHub/sso.auth.v1;authv1b\x06proto3"
 
 var (
 	file_sso_auth_auth_proto_rawDescOnce sync.Once
@@ -608,30 +604,30 @@ func file_sso_auth_auth_proto_rawDescGZIP() []byte {
 var file_sso_auth_auth_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_sso_auth_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_sso_auth_auth_proto_goTypes = []any{
-	(Provider)(0),                      // 0: Provider
-	(*ExchangeCodeRequest)(nil),        // 1: ExchangeCodeRequest
-	(*ExchangeCodeResponse)(nil),       // 2: ExchangeCodeResponse
-	(*UserDetailsRequest)(nil),         // 3: UserDetailsRequest
-	(*UserDetailsResponse)(nil),        // 4: UserDetailsResponse
-	(*RefreshTokenRequest)(nil),        // 5: RefreshTokenRequest
-	(*RefreshTokenResponse)(nil),       // 6: RefreshTokenResponse
-	(*LogoutRequest)(nil),              // 7: LogoutRequest
-	(*LogoutResponse)(nil),             // 8: LogoutResponse
-	(*RevokeRefreshTokenRequest)(nil),  // 9: RevokeRefreshTokenRequest
-	(*RevokeRefreshTokenResponse)(nil), // 10: RevokeRefreshTokenResponse
+	(Provider)(0),                      // 0: sso.auth.v1.Provider
+	(*ExchangeCodeRequest)(nil),        // 1: sso.auth.v1.ExchangeCodeRequest
+	(*ExchangeCodeResponse)(nil),       // 2: sso.auth.v1.ExchangeCodeResponse
+	(*UserDetailsRequest)(nil),         // 3: sso.auth.v1.UserDetailsRequest
+	(*UserDetailsResponse)(nil),        // 4: sso.auth.v1.UserDetailsResponse
+	(*RefreshTokenRequest)(nil),        // 5: sso.auth.v1.RefreshTokenRequest
+	(*RefreshTokenResponse)(nil),       // 6: sso.auth.v1.RefreshTokenResponse
+	(*LogoutRequest)(nil),              // 7: sso.auth.v1.LogoutRequest
+	(*LogoutResponse)(nil),             // 8: sso.auth.v1.LogoutResponse
+	(*RevokeRefreshTokenRequest)(nil),  // 9: sso.auth.v1.RevokeRefreshTokenRequest
+	(*RevokeRefreshTokenResponse)(nil), // 10: sso.auth.v1.RevokeRefreshTokenResponse
 }
 var file_sso_auth_auth_proto_depIdxs = []int32{
-	0,  // 0: ExchangeCodeRequest.provider:type_name -> Provider
-	1,  // 1: Auth.ExchangeCode:input_type -> ExchangeCodeRequest
-	3,  // 2: Auth.UserDetails:input_type -> UserDetailsRequest
-	5,  // 3: Auth.RefreshToken:input_type -> RefreshTokenRequest
-	7,  // 4: Auth.Logout:input_type -> LogoutRequest
-	9,  // 5: Auth.RevokeRefreshToken:input_type -> RevokeRefreshTokenRequest
-	2,  // 6: Auth.ExchangeCode:output_type -> ExchangeCodeResponse
-	4,  // 7: Auth.UserDetails:output_type -> UserDetailsResponse
-	6,  // 8: Auth.RefreshToken:output_type -> RefreshTokenResponse
-	8,  // 9: Auth.Logout:output_type -> LogoutResponse
-	10, // 10: Auth.RevokeRefreshToken:output_type -> RevokeRefreshTokenResponse
+	0,  // 0: sso.auth.v1.ExchangeCodeRequest.provider:type_name -> sso.auth.v1.Provider
+	1,  // 1: sso.auth.v1.Auth.ExchangeCode:input_type -> sso.auth.v1.ExchangeCodeRequest
+	3,  // 2: sso.auth.v1.Auth.UserDetails:input_type -> sso.auth.v1.UserDetailsRequest
+	5,  // 3: sso.auth.v1.Auth.RefreshToken:input_type -> sso.auth.v1.RefreshTokenRequest
+	7,  // 4: sso.auth.v1.Auth.Logout:input_type -> sso.auth.v1.LogoutRequest
+	9,  // 5: sso.auth.v1.Auth.RevokeRefreshToken:input_type -> sso.auth.v1.RevokeRefreshTokenRequest
+	2,  // 6: sso.auth.v1.Auth.ExchangeCode:output_type -> sso.auth.v1.ExchangeCodeResponse
+	4,  // 7: sso.auth.v1.Auth.UserDetails:output_type -> sso.auth.v1.UserDetailsResponse
+	6,  // 8: sso.auth.v1.Auth.RefreshToken:output_type -> sso.auth.v1.RefreshTokenResponse
+	8,  // 9: sso.auth.v1.Auth.Logout:output_type -> sso.auth.v1.LogoutResponse
+	10, // 10: sso.auth.v1.Auth.RevokeRefreshToken:output_type -> sso.auth.v1.RevokeRefreshTokenResponse
 	6,  // [6:11] is the sub-list for method output_type
 	1,  // [1:6] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name

@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Auth_ExchangeCode_FullMethodName       = "/Auth/ExchangeCode"
-	Auth_UserDetails_FullMethodName        = "/Auth/UserDetails"
-	Auth_RefreshToken_FullMethodName       = "/Auth/RefreshToken"
-	Auth_Logout_FullMethodName             = "/Auth/Logout"
-	Auth_RevokeRefreshToken_FullMethodName = "/Auth/RevokeRefreshToken"
+	Auth_ExchangeCode_FullMethodName       = "/sso.auth.v1.Auth/ExchangeCode"
+	Auth_UserDetails_FullMethodName        = "/sso.auth.v1.Auth/UserDetails"
+	Auth_RefreshToken_FullMethodName       = "/sso.auth.v1.Auth/RefreshToken"
+	Auth_Logout_FullMethodName             = "/sso.auth.v1.Auth/Logout"
+	Auth_RevokeRefreshToken_FullMethodName = "/sso.auth.v1.Auth/RevokeRefreshToken"
 )
 
 // AuthClient is the client API for Auth service.
@@ -244,7 +244,7 @@ func _Auth_RevokeRefreshToken_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Auth_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Auth",
+	ServiceName: "sso.auth.v1.Auth",
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
